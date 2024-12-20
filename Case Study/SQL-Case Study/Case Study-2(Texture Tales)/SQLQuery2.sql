@@ -1,0 +1,727 @@
+
+--CREATE TABLE product_hierarchy (
+--   id         INTEGER  NOT NULL PRIMARY KEY,
+--   parent_id  INTEGER,
+--   level_text VARCHAR(19) NOT NULL,
+--   level_name VARCHAR(8) NOT NULL,
+--   FOREIGN KEY (parent_id) REFERENCES product_hierarchy(id)
+--);
+
+--CREATE TABLE product_details (
+--   product_id    VARCHAR(6) NOT NULL PRIMARY KEY,
+--   price         INTEGER  NOT NULL,
+--   product_name  VARCHAR(32) NOT NULL,
+--   category_id   INTEGER  NOT NULL,
+--   segment_id    INTEGER  NOT NULL,
+--   style_id      INTEGER  NOT NULL,
+--   category_name VARCHAR(6) NOT NULL,
+--   segment_name  VARCHAR(6) NOT NULL,
+--   style_name    VARCHAR(19) NOT NULL,
+--   FOREIGN KEY (category_id) REFERENCES product_hierarchy(id), 
+--   FOREIGN KEY (segment_id)  REFERENCES product_hierarchy(id), 
+--   FOREIGN KEY (style_id)    REFERENCES product_hierarchy(id) 
+--);
+
+--CREATE TABLE product_prices (
+--   id         INTEGER  NOT NULL PRIMARY KEY,
+--   product_id VARCHAR(6) NOT NULL,
+--   price      INTEGER  NOT NULL,
+--   FOREIGN KEY (product_id) REFERENCES product_details(product_id) 
+--);
+
+--CREATE TABLE sales (
+--   prod_id        VARCHAR(6) NOT NULL,
+--   qty            INTEGER  NOT NULL,
+--   price          INTEGER  NOT NULL,
+--   discount       INTEGER  NOT NULL,
+--   member         VARCHAR(5) NOT NULL,
+--   txn_id         VARCHAR(6) NOT NULL,
+--   start_txn_time VARCHAR(24) NOT NULL,
+--   FOREIGN KEY (prod_id) REFERENCES product_details(product_id) 
+   
+--);
+
+
+--INSERT INTO product_hierarchy(id, parent_id, level_text, level_name) VALUES (1, NULL, 'Womens', 'Category');
+--INSERT INTO product_hierarchy(id, parent_id, level_text, level_name) VALUES (2, NULL, 'Mens', 'Category');
+--INSERT INTO product_hierarchy(id, parent_id, level_text, level_name) VALUES (3, 1, 'Jeans', 'Segment'); 
+--INSERT INTO product_hierarchy(id, parent_id, level_text, level_name) VALUES (4, 1, 'Jacket', 'Segment'); 
+--INSERT INTO product_hierarchy(id, parent_id, level_text, level_name) VALUES (5, 2, 'Shirt', 'Segment');  
+--INSERT INTO product_hierarchy(id, parent_id, level_text, level_name) VALUES (6, 2, 'Socks', 'Segment');  
+--INSERT INTO product_hierarchy(id, parent_id, level_text, level_name) VALUES (7, 3, 'Navy Oversized', 'Style');  
+--INSERT INTO product_hierarchy(id, parent_id, level_text, level_name) VALUES (8, 3, 'Black Straight', 'Style');   
+--INSERT INTO product_hierarchy(id, parent_id, level_text, level_name) VALUES (9, 3, 'Cream Relaxed', 'Style');    
+--INSERT INTO product_hierarchy(id, parent_id, level_text, level_name) VALUES (10, 4, 'Khaki Suit', 'Style');      
+--INSERT INTO product_hierarchy(id, parent_id, level_text, level_name) VALUES (11, 4, 'Indigo Rain', 'Style');     
+--INSERT INTO product_hierarchy(id, parent_id, level_text, level_name) VALUES (12, 4, 'Grey Fashion', 'Style');    
+--INSERT INTO product_hierarchy(id, parent_id, level_text, level_name) VALUES (13, 5, 'White Tee', 'Style');      
+--INSERT INTO product_hierarchy(id, parent_id, level_text, level_name) VALUES (14, 5, 'Teal Button Up', 'Style'); 
+--INSERT INTO product_hierarchy(id, parent_id, level_text, level_name) VALUES (15, 5, 'Blue Polo', 'Style');       
+--INSERT INTO product_hierarchy(id, parent_id, level_text, level_name) VALUES (16, 6, 'Navy Solid', 'Style');     
+--INSERT INTO product_hierarchy(id, parent_id, level_text, level_name) VALUES (17, 6, 'White Striped', 'Style');  
+--INSERT INTO product_hierarchy(id, parent_id, level_text, level_name) VALUES (18, 6, 'Pink Fluro Polkadot', 'Style'); 
+
+-- Insert products into the product_details table
+--INSERT INTO product_details (product_id, price, product_name, category_id, segment_id, style_id, category_name, segment_name, style_name) 
+--VALUES 
+--    ('c4a632', 13, 'Navy Oversized Jeans - Womens', 1, 3, 7, 'Womens', 'Jeans', 'Navy Oversized'),
+--    ('e83aa3', 32, 'Black Straight Jeans - Womens', 1, 3, 8, 'Womens', 'Jeans', 'Black Straight'),
+--    ('e31d39', 10, 'Cream Relaxed Jeans - Womens', 1, 3, 9, 'Womens', 'Jeans', 'Cream Relaxed'),
+--    ('d5e9a6', 23, 'Khaki Suit Jacket - Womens', 1, 4, 10, 'Womens', 'Jacket', 'Khaki Suit'),
+--    ('72f5d4', 19, 'Indigo Rain Jacket - Womens', 1, 4, 11, 'Womens', 'Jacket', 'Indigo Rain'),
+--    ('9ec847', 54, 'Grey Fashion Jacket - Womens', 1, 4, 12, 'Womens', 'Jacket', 'Grey Fashion'),
+--    ('5d267b', 40, 'White Tee Shirt - Mens', 2, 5, 13, 'Mens', 'Shirt', 'White Tee'),
+--    ('c8d436', 10, 'Teal Button Up Shirt - Mens', 2, 5, 14, 'Mens', 'Shirt', 'Teal Button Up'),
+--    ('2a2353', 57, 'Blue Polo Shirt - Mens', 2, 5, 15, 'Mens', 'Shirt', 'Blue Polo'),
+--    ('f084eb', 36, 'Navy Solid Socks - Mens', 2, 6, 16, 'Mens', 'Socks', 'Navy Solid'),
+--    ('b9a74d', 17, 'White Striped Socks - Mens', 2, 6, 17, 'Mens', 'Socks', 'White Striped'),
+--    ('2feb6b', 29, 'Pink Fluro Polkadot Socks - Mens', 2, 6, 18, 'Mens', 'Socks', 'Pink Fluro Polkadot');
+
+-- Insert prices into product_prices table
+--INSERT INTO product_prices (id, product_id, price) VALUES (7, 'c4a632', 13);
+--INSERT INTO product_prices (id, product_id, price) VALUES (8, 'e83aa3', 32);
+--INSERT INTO product_prices (id, product_id, price) VALUES (9, 'e31d39', 10);
+--INSERT INTO product_prices (id, product_id, price) VALUES (10, 'd5e9a6', 23);
+--INSERT INTO product_prices (id, product_id, price) VALUES (11, '72f5d4', 19);
+--INSERT INTO product_prices (id, product_id, price) VALUES (12, '9ec847', 54);
+--INSERT INTO product_prices (id, product_id, price) VALUES (13, '5d267b', 40);
+--INSERT INTO product_prices (id, product_id, price) VALUES (14, 'c8d436', 10);
+--INSERT INTO product_prices (id, product_id, price) VALUES (15, '2a2353', 57);
+--INSERT INTO product_prices (id, product_id, price) VALUES (16, 'f084eb', 36);
+--INSERT INTO product_prices (id, product_id, price) VALUES (17, 'b9a74d', 17);
+--INSERT INTO product_prices (id, product_id, price) VALUES (18, '2feb6b', 29);
+
+
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',4,13,17,'true','54f307','2021-02-13T01:59:43.296Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',4,40,17,'true','54f307','2021-02-13T01:59:43.296Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',4,17,17,'true','54f307','2021-02-13T01:59:43.296Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',2,29,17,'true','54f307','2021-02-13T01:59:43.296Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',5,13,21,'true','26cc98','2021-01-19T01:39:00.346Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',2,10,21,'true','26cc98','2021-01-19T01:39:00.346Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',3,19,21,'true','26cc98','2021-01-19T01:39:00.346Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',3,57,21,'true','26cc98','2021-01-19T01:39:00.346Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',3,36,21,'true','26cc98','2021-01-19T01:39:00.346Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',1,13,21,'false','ef648d','2021-01-27T02:18:17.165Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',5,32,21,'false','ef648d','2021-01-27T02:18:17.165Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',1,23,21,'false','ef648d','2021-01-27T02:18:17.165Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',1,19,21,'false','ef648d','2021-01-27T02:18:17.165Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',3,40,21,'false','ef648d','2021-01-27T02:18:17.165Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',4,36,21,'false','ef648d','2021-01-27T02:18:17.165Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',4,17,21,'false','ef648d','2021-01-27T02:18:17.165Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',2,13,23,'true','fba96f','2021-03-03T00:32:56.054Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',5,10,23,'true','fba96f','2021-03-03T00:32:56.054Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',3,54,23,'true','fba96f','2021-03-03T00:32:56.054Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',4,36,23,'true','fba96f','2021-03-03T00:32:56.054Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',2,29,23,'true','fba96f','2021-03-03T00:32:56.054Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',5,13,11,'true','4e9268','2021-01-23T14:18:54.058Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',4,10,11,'true','4e9268','2021-01-23T14:18:54.058Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',5,19,11,'true','4e9268','2021-01-23T14:18:54.058Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',2,36,11,'true','4e9268','2021-01-23T14:18:54.058Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',2,17,11,'true','4e9268','2021-01-23T14:18:54.058Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',4,32,4,'true','9717d4','2021-01-29T07:22:13.267Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',2,23,4,'true','9717d4','2021-01-29T07:22:13.267Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',4,10,4,'true','9717d4','2021-01-29T07:22:13.267Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',1,57,4,'true','9717d4','2021-01-29T07:22:13.267Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',1,36,4,'true','9717d4','2021-01-29T07:22:13.267Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',3,19,14,'false','e9a1dd','2021-03-28T20:01:43.133Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',3,54,14,'false','e9a1dd','2021-03-28T20:01:43.133Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',4,57,14,'false','e9a1dd','2021-03-28T20:01:43.133Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',2,36,14,'false','e9a1dd','2021-03-28T20:01:43.133Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',3,13,6,'false','003ea6','2021-01-20T14:21:00.979Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',3,10,6,'false','003ea6','2021-01-20T14:21:00.979Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',3,23,6,'false','003ea6','2021-01-20T14:21:00.979Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',3,54,6,'false','003ea6','2021-01-20T14:21:00.979Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',5,10,20,'false','5d749c','2021-03-28T22:24:25.805Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',4,23,20,'false','5d749c','2021-03-28T22:24:25.805Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',5,40,20,'false','5d749c','2021-03-28T22:24:25.805Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',4,57,20,'false','5d749c','2021-03-28T22:24:25.805Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',2,36,20,'false','5d749c','2021-03-28T22:24:25.805Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',5,23,14,'false','cf6517','2021-02-21T21:45:33.350Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',1,19,14,'false','cf6517','2021-02-21T21:45:33.350Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',5,40,14,'false','cf6517','2021-02-21T21:45:33.350Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',3,17,14,'false','cf6517','2021-02-21T21:45:33.350Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',5,13,19,'true','48b9d7','2021-02-26T06:49:17.386Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',2,32,19,'true','48b9d7','2021-02-26T06:49:17.386Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',1,10,19,'true','48b9d7','2021-02-26T06:49:17.386Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',2,23,19,'true','48b9d7','2021-02-26T06:49:17.386Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',5,40,19,'true','48b9d7','2021-02-26T06:49:17.386Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',1,10,19,'true','48b9d7','2021-02-26T06:49:17.386Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',3,57,19,'true','48b9d7','2021-02-26T06:49:17.386Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',1,17,19,'true','48b9d7','2021-02-26T06:49:17.386Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',5,29,19,'true','48b9d7','2021-02-26T06:49:17.386Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',3,19,5,'true','47251d','2021-01-27T22:53:10.781Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',5,40,5,'true','47251d','2021-01-27T22:53:10.781Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',5,57,5,'true','47251d','2021-01-27T22:53:10.781Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',2,36,5,'true','47251d','2021-01-27T22:53:10.781Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',4,32,15,'false','c75ea6','2021-03-03T04:17:19.853Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',5,10,15,'false','c75ea6','2021-03-03T04:17:19.853Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',2,19,15,'false','c75ea6','2021-03-03T04:17:19.853Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',4,54,15,'false','c75ea6','2021-03-03T04:17:19.853Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',1,40,15,'false','c75ea6','2021-03-03T04:17:19.853Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',5,36,15,'false','c75ea6','2021-03-03T04:17:19.853Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',4,17,15,'false','c75ea6','2021-03-03T04:17:19.853Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',5,29,15,'false','c75ea6','2021-03-03T04:17:19.853Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',1,13,10,'true','84a0f1','2021-03-19T23:33:38.275Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',4,10,10,'true','84a0f1','2021-03-19T23:33:38.275Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',5,54,10,'true','84a0f1','2021-03-19T23:33:38.275Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',2,17,10,'true','84a0f1','2021-03-19T23:33:38.275Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',1,29,10,'true','84a0f1','2021-03-19T23:33:38.275Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',4,13,9,'false','786c60','2021-01-13T08:41:16.454Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',1,32,9,'false','786c60','2021-01-13T08:41:16.454Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',4,10,9,'false','786c60','2021-01-13T08:41:16.454Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',4,23,9,'false','786c60','2021-01-13T08:41:16.454Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',1,19,9,'false','786c60','2021-01-13T08:41:16.454Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',2,54,9,'false','786c60','2021-01-13T08:41:16.454Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',5,10,9,'false','786c60','2021-01-13T08:41:16.454Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',4,57,9,'false','786c60','2021-01-13T08:41:16.454Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',1,36,9,'false','786c60','2021-01-13T08:41:16.454Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',2,17,9,'false','786c60','2021-01-13T08:41:16.454Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',1,13,13,'true','500bf9','2021-03-08T02:41:15.331Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',1,23,13,'true','500bf9','2021-03-08T02:41:15.331Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',4,54,13,'true','500bf9','2021-03-08T02:41:15.331Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',4,17,13,'true','500bf9','2021-03-08T02:41:15.331Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',4,32,24,'true','034601','2021-01-12T17:35:37.334Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',4,10,24,'true','034601','2021-01-12T17:35:37.334Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',5,54,24,'true','034601','2021-01-12T17:35:37.334Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',3,36,24,'true','034601','2021-01-12T17:35:37.334Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',3,17,24,'true','034601','2021-01-12T17:35:37.334Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',4,32,1,'true','a88a5e','2021-02-15T04:56:13.258Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',4,40,1,'true','a88a5e','2021-02-15T04:56:13.258Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',3,23,19,'false','9a9653','2021-02-08T09:12:50.083Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',1,10,19,'false','9a9653','2021-02-08T09:12:50.083Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',2,36,19,'false','9a9653','2021-02-08T09:12:50.083Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',2,17,19,'false','9a9653','2021-02-08T09:12:50.083Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',2,29,19,'false','9a9653','2021-02-08T09:12:50.083Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',5,13,14,'false','1edc69','2021-03-28T15:32:43.786Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',5,32,14,'false','1edc69','2021-03-28T15:32:43.786Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',3,19,14,'false','1edc69','2021-03-28T15:32:43.786Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',5,54,14,'false','1edc69','2021-03-28T15:32:43.786Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',3,10,14,'false','1edc69','2021-03-28T15:32:43.786Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',4,17,14,'false','1edc69','2021-03-28T15:32:43.786Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',1,32,18,'false','638a7d','2021-03-15T02:24:18.058Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',2,10,18,'false','638a7d','2021-03-15T02:24:18.058Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',4,23,18,'false','638a7d','2021-03-15T02:24:18.058Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',3,19,18,'false','638a7d','2021-03-15T02:24:18.058Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',3,54,18,'false','638a7d','2021-03-15T02:24:18.058Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',2,40,18,'false','638a7d','2021-03-15T02:24:18.058Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',2,10,18,'false','638a7d','2021-03-15T02:24:18.058Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',3,57,18,'false','638a7d','2021-03-15T02:24:18.058Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',3,17,18,'false','638a7d','2021-03-15T02:24:18.058Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',5,13,1,'false','4bdb49','2021-03-03T04:33:15.264Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',2,54,1,'false','4bdb49','2021-03-03T04:33:15.264Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',2,40,1,'false','4bdb49','2021-03-03T04:33:15.264Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',1,10,1,'false','4bdb49','2021-03-03T04:33:15.264Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',5,36,1,'false','4bdb49','2021-03-03T04:33:15.264Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',3,17,1,'false','4bdb49','2021-03-03T04:33:15.264Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',2,29,1,'false','4bdb49','2021-03-03T04:33:15.264Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',2,13,13,'true','8f4908','2021-03-24T21:30:36.259Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',4,32,13,'true','8f4908','2021-03-24T21:30:36.259Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',2,23,13,'true','8f4908','2021-03-24T21:30:36.259Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',3,19,13,'true','8f4908','2021-03-24T21:30:36.259Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',4,40,13,'true','8f4908','2021-03-24T21:30:36.259Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',1,36,13,'true','8f4908','2021-03-24T21:30:36.259Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',5,17,13,'true','8f4908','2021-03-24T21:30:36.259Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',2,10,20,'true','3132fb','2021-02-11T01:59:35.261Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',1,23,20,'true','3132fb','2021-02-11T01:59:35.261Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',4,40,20,'true','3132fb','2021-02-11T01:59:35.261Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',4,57,20,'true','3132fb','2021-02-11T01:59:35.261Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',1,17,20,'true','3132fb','2021-02-11T01:59:35.261Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',5,29,20,'true','3132fb','2021-02-11T01:59:35.261Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',5,13,12,'true','2cf0ed','2021-01-24T00:59:46.291Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',5,10,12,'true','2cf0ed','2021-01-24T00:59:46.291Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',4,23,12,'true','2cf0ed','2021-01-24T00:59:46.291Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',4,57,12,'true','2cf0ed','2021-01-24T00:59:46.291Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',2,36,12,'true','2cf0ed','2021-01-24T00:59:46.291Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',5,29,12,'true','2cf0ed','2021-01-24T00:59:46.291Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',5,10,16,'true','9e0037','2021-01-09T17:25:31.238Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',1,23,16,'true','9e0037','2021-01-09T17:25:31.238Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',1,19,16,'true','9e0037','2021-01-09T17:25:31.238Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',3,36,16,'true','9e0037','2021-01-09T17:25:31.238Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',5,23,7,'true','d1a249','2021-02-07T21:22:19.718Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',4,19,7,'true','d1a249','2021-02-07T21:22:19.718Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',5,54,7,'true','d1a249','2021-02-07T21:22:19.718Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',3,57,7,'true','d1a249','2021-02-07T21:22:19.718Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',3,29,7,'true','d1a249','2021-02-07T21:22:19.718Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',2,13,22,'true','f77cc2','2021-02-08T12:29:27.917Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',5,32,22,'true','f77cc2','2021-02-08T12:29:27.917Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',3,23,22,'true','f77cc2','2021-02-08T12:29:27.917Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',3,54,22,'true','f77cc2','2021-02-08T12:29:27.917Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',3,40,22,'true','f77cc2','2021-02-08T12:29:27.917Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',5,10,22,'true','f77cc2','2021-02-08T12:29:27.917Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',5,57,22,'true','f77cc2','2021-02-08T12:29:27.917Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',2,13,9,'true','1928b1','2021-03-25T08:47:13.286Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',1,10,9,'true','1928b1','2021-03-25T08:47:13.286Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',1,23,9,'true','1928b1','2021-03-25T08:47:13.286Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',1,54,9,'true','1928b1','2021-03-25T08:47:13.286Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',3,40,9,'true','1928b1','2021-03-25T08:47:13.286Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',4,57,9,'true','1928b1','2021-03-25T08:47:13.286Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',1,17,9,'true','1928b1','2021-03-25T08:47:13.286Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',5,29,9,'true','1928b1','2021-03-25T08:47:13.286Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',1,32,5,'true','c228e3','2021-02-03T00:35:29.933Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',3,23,5,'true','c228e3','2021-02-03T00:35:29.933Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',3,19,5,'true','c228e3','2021-02-03T00:35:29.933Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',4,57,5,'true','c228e3','2021-02-03T00:35:29.933Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',2,10,23,'true','870d3b','2021-01-20T14:29:24.691Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',1,54,23,'true','870d3b','2021-01-20T14:29:24.691Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',4,10,23,'true','870d3b','2021-01-20T14:29:24.691Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',3,57,23,'true','870d3b','2021-01-20T14:29:24.691Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',3,13,22,'true','46f796','2021-03-13T02:30:37.181Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',2,57,22,'true','46f796','2021-03-13T02:30:37.181Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',4,17,22,'true','46f796','2021-03-13T02:30:37.181Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',5,23,15,'true','24986f','2021-01-09T03:30:35.222Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',3,19,15,'true','24986f','2021-01-09T03:30:35.222Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',3,40,15,'true','24986f','2021-01-09T03:30:35.222Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',4,57,15,'true','24986f','2021-01-09T03:30:35.222Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',1,36,15,'true','24986f','2021-01-09T03:30:35.222Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',3,17,15,'true','24986f','2021-01-09T03:30:35.222Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',4,32,2,'true','90e5ad','2021-02-28T23:10:03.734Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',4,10,2,'true','90e5ad','2021-02-28T23:10:03.734Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',3,54,2,'true','90e5ad','2021-02-28T23:10:03.734Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',2,57,2,'true','90e5ad','2021-02-28T23:10:03.734Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',1,17,2,'true','90e5ad','2021-02-28T23:10:03.734Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',3,13,10,'true','31f568','2021-01-13T17:48:42.970Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',2,10,10,'true','31f568','2021-01-13T17:48:42.970Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',4,19,10,'true','31f568','2021-01-13T17:48:42.970Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',4,29,10,'true','31f568','2021-01-13T17:48:42.970Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',1,32,15,'true','fb6b00','2021-02-23T17:17:16.685Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',4,10,15,'true','fb6b00','2021-02-23T17:17:16.685Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',3,19,15,'true','fb6b00','2021-02-23T17:17:16.685Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',1,54,15,'true','fb6b00','2021-02-23T17:17:16.685Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',5,40,15,'true','fb6b00','2021-02-23T17:17:16.685Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',5,57,15,'true','fb6b00','2021-02-23T17:17:16.685Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',4,36,15,'true','fb6b00','2021-02-23T17:17:16.685Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',5,29,15,'true','fb6b00','2021-02-23T17:17:16.685Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',2,13,18,'true','cf21fe','2021-02-18T08:32:03.408Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',4,40,18,'true','cf21fe','2021-02-18T08:32:03.408Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',4,10,18,'true','cf21fe','2021-02-18T08:32:03.408Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',2,29,18,'true','cf21fe','2021-02-18T08:32:03.408Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',1,10,6,'true','a4586a','2021-01-29T18:42:09.619Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',3,23,6,'true','a4586a','2021-01-29T18:42:09.619Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',2,10,6,'true','a4586a','2021-01-29T18:42:09.619Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',5,57,6,'true','a4586a','2021-01-29T18:42:09.619Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',3,36,6,'true','a4586a','2021-01-29T18:42:09.619Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',1,17,6,'true','a4586a','2021-01-29T18:42:09.619Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',2,29,6,'true','a4586a','2021-01-29T18:42:09.619Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',4,13,16,'false','dfec5f','2021-01-18T07:30:42.077Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',4,32,16,'false','dfec5f','2021-01-18T07:30:42.077Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',4,10,16,'false','dfec5f','2021-01-18T07:30:42.077Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',4,19,16,'false','dfec5f','2021-01-18T07:30:42.077Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',3,54,16,'false','dfec5f','2021-01-18T07:30:42.077Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',1,40,16,'false','dfec5f','2021-01-18T07:30:42.077Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',2,10,16,'false','dfec5f','2021-01-18T07:30:42.077Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',4,57,16,'false','dfec5f','2021-01-18T07:30:42.077Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',5,36,16,'false','dfec5f','2021-01-18T07:30:42.077Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',1,17,16,'false','dfec5f','2021-01-18T07:30:42.077Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',1,13,18,'true','7c7e2d','2021-02-01T22:00:00.720Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',1,32,18,'true','7c7e2d','2021-02-01T22:00:00.720Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',5,10,18,'true','7c7e2d','2021-02-01T22:00:00.720Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',5,19,18,'true','7c7e2d','2021-02-01T22:00:00.720Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',1,54,18,'true','7c7e2d','2021-02-01T22:00:00.720Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',1,10,18,'true','7c7e2d','2021-02-01T22:00:00.720Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',5,57,18,'true','7c7e2d','2021-02-01T22:00:00.720Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',2,36,18,'true','7c7e2d','2021-02-01T22:00:00.720Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',5,17,18,'true','7c7e2d','2021-02-01T22:00:00.720Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',3,32,0,'true','b7106e','2021-01-22T11:50:11.962Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',2,54,0,'true','b7106e','2021-01-22T11:50:11.962Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',1,10,0,'true','b7106e','2021-01-22T11:50:11.962Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',3,57,0,'true','b7106e','2021-01-22T11:50:11.962Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',4,17,0,'true','b7106e','2021-01-22T11:50:11.962Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',3,54,6,'true','9ae921','2021-03-22T03:08:08.938Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',2,40,6,'true','9ae921','2021-03-22T03:08:08.938Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',2,57,6,'true','9ae921','2021-03-22T03:08:08.938Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',2,36,6,'true','9ae921','2021-03-22T03:08:08.938Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',4,17,6,'true','9ae921','2021-03-22T03:08:08.938Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',4,32,1,'true','023ace','2021-02-15T01:51:16.214Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',5,23,1,'true','023ace','2021-02-15T01:51:16.214Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',2,54,1,'true','023ace','2021-02-15T01:51:16.214Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',3,10,1,'true','023ace','2021-02-15T01:51:16.214Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',2,17,1,'true','023ace','2021-02-15T01:51:16.214Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',4,23,22,'true','d7b455','2021-01-29T13:20:29.674Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',4,19,22,'true','d7b455','2021-01-29T13:20:29.674Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',5,40,22,'true','d7b455','2021-01-29T13:20:29.674Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',3,57,22,'true','d7b455','2021-01-29T13:20:29.674Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',5,36,22,'true','d7b455','2021-01-29T13:20:29.674Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',2,13,4,'false','f16705','2021-02-24T01:06:25.718Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',4,10,4,'false','f16705','2021-02-24T01:06:25.718Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',1,23,4,'false','f16705','2021-02-24T01:06:25.718Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',3,19,4,'false','f16705','2021-02-24T01:06:25.718Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',2,54,4,'false','f16705','2021-02-24T01:06:25.718Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',3,17,4,'false','f16705','2021-02-24T01:06:25.718Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',1,29,4,'false','f16705','2021-02-24T01:06:25.718Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',5,32,18,'false','8d2c78','2021-03-02T01:26:50.611Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',1,10,18,'false','8d2c78','2021-03-02T01:26:50.611Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',2,19,18,'false','8d2c78','2021-03-02T01:26:50.611Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',1,36,18,'false','8d2c78','2021-03-02T01:26:50.611Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',3,23,16,'true','28d244','2021-02-20T06:45:03.715Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',2,54,16,'true','28d244','2021-02-20T06:45:03.715Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',1,40,16,'true','28d244','2021-02-20T06:45:03.715Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',4,10,16,'true','28d244','2021-02-20T06:45:03.715Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',4,57,16,'true','28d244','2021-02-20T06:45:03.715Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',3,36,16,'true','28d244','2021-02-20T06:45:03.715Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',4,13,22,'false','d499f9','2021-02-13T19:04:20.870Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',4,23,22,'false','d499f9','2021-02-13T19:04:20.870Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',3,54,22,'false','d499f9','2021-02-13T19:04:20.870Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',1,40,22,'false','d499f9','2021-02-13T19:04:20.870Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',1,10,22,'false','d499f9','2021-02-13T19:04:20.870Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',4,57,22,'false','d499f9','2021-02-13T19:04:20.870Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',5,36,22,'false','d499f9','2021-02-13T19:04:20.870Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',2,17,22,'false','d499f9','2021-02-13T19:04:20.870Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',2,13,22,'true','3fcd70','2021-02-15T07:06:06.278Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',4,19,22,'true','3fcd70','2021-02-15T07:06:06.278Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',5,54,22,'true','3fcd70','2021-02-15T07:06:06.278Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',4,36,22,'true','3fcd70','2021-02-15T07:06:06.278Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',1,17,22,'true','3fcd70','2021-02-15T07:06:06.278Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',2,29,22,'true','3fcd70','2021-02-15T07:06:06.278Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',4,10,23,'true','4f6a83','2021-02-07T16:17:00.672Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',2,23,23,'true','4f6a83','2021-02-07T16:17:00.672Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',5,54,23,'true','4f6a83','2021-02-07T16:17:00.672Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',1,10,23,'true','4f6a83','2021-02-07T16:17:00.672Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',5,29,23,'true','4f6a83','2021-02-07T16:17:00.672Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',1,13,19,'false','572c3a','2021-01-09T23:57:29.923Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',3,32,19,'false','572c3a','2021-01-09T23:57:29.923Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',4,10,19,'false','572c3a','2021-01-09T23:57:29.923Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',5,23,19,'false','572c3a','2021-01-09T23:57:29.923Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',5,54,19,'false','572c3a','2021-01-09T23:57:29.923Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',3,40,19,'false','572c3a','2021-01-09T23:57:29.923Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',1,10,19,'false','572c3a','2021-01-09T23:57:29.923Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',3,57,19,'false','572c3a','2021-01-09T23:57:29.923Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',1,36,19,'false','572c3a','2021-01-09T23:57:29.923Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',1,29,19,'false','572c3a','2021-01-09T23:57:29.923Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',2,13,12,'false','04970c','2021-01-28T10:03:47.347Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',2,10,12,'false','04970c','2021-01-28T10:03:47.347Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',3,19,12,'false','04970c','2021-01-28T10:03:47.347Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',4,54,12,'false','04970c','2021-01-28T10:03:47.347Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',5,10,12,'false','04970c','2021-01-28T10:03:47.347Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',3,13,16,'true','8d1375','2021-03-15T19:41:11.328Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',3,32,16,'true','8d1375','2021-03-15T19:41:11.328Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',4,19,16,'true','8d1375','2021-03-15T19:41:11.328Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',2,40,16,'true','8d1375','2021-03-15T19:41:11.328Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',2,10,16,'true','8d1375','2021-03-15T19:41:11.328Z');
+----INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',5,57,16,'true','8d1375','2021-03-15T19:41:11.328Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',5,36,16,'true','8d1375','2021-03-15T19:41:11.328Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',2,29,16,'true','8d1375','2021-03-15T19:41:11.328Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',4,13,0,'false','95ef47','2021-01-20T18:38:24.720Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',3,10,0,'false','95ef47','2021-01-20T18:38:24.720Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',5,23,0,'false','95ef47','2021-01-20T18:38:24.720Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',1,19,0,'false','95ef47','2021-01-20T18:38:24.720Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',3,54,0,'false','95ef47','2021-01-20T18:38:24.720Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',1,40,0,'false','95ef47','2021-01-20T18:38:24.720Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',3,10,0,'false','95ef47','2021-01-20T18:38:24.720Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',4,57,0,'false','95ef47','2021-01-20T18:38:24.720Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',1,17,0,'false','95ef47','2021-01-20T18:38:24.720Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',2,13,19,'true','9a36b3','2021-01-24T23:26:15.475Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',3,32,19,'true','9a36b3','2021-01-24T23:26:15.475Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',1,10,19,'true','9a36b3','2021-01-24T23:26:15.475Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',1,19,19,'true','9a36b3','2021-01-24T23:26:15.475Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',3,54,19,'true','9a36b3','2021-01-24T23:26:15.475Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',5,40,19,'true','9a36b3','2021-01-24T23:26:15.475Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',4,10,19,'true','9a36b3','2021-01-24T23:26:15.475Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',1,36,19,'true','9a36b3','2021-01-24T23:26:15.475Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',4,17,19,'true','9a36b3','2021-01-24T23:26:15.475Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',5,29,19,'true','9a36b3','2021-01-24T23:26:15.475Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',2,19,6,'true','7db661','2021-01-18T04:02:51.274Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',5,40,6,'true','7db661','2021-01-18T04:02:51.274Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',4,10,6,'true','7db661','2021-01-18T04:02:51.274Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',2,17,6,'true','7db661','2021-01-18T04:02:51.274Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',3,13,17,'true','3424ed','2021-01-20T23:52:40.656Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',1,32,17,'true','3424ed','2021-01-20T23:52:40.656Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',4,10,17,'true','3424ed','2021-01-20T23:52:40.656Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',3,54,17,'true','3424ed','2021-01-20T23:52:40.656Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',2,40,17,'true','3424ed','2021-01-20T23:52:40.656Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',4,17,17,'true','3424ed','2021-01-20T23:52:40.656Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',1,32,13,'true','16463d','2021-01-20T07:26:39.379Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',5,19,13,'true','16463d','2021-01-20T07:26:39.379Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',5,54,13,'true','16463d','2021-01-20T07:26:39.379Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',1,40,13,'true','16463d','2021-01-20T07:26:39.379Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',4,57,13,'true','16463d','2021-01-20T07:26:39.379Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',3,17,13,'true','16463d','2021-01-20T07:26:39.379Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',1,23,21,'true','27be37','2021-01-20T00:46:56.381Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',5,54,21,'true','27be37','2021-01-20T00:46:56.381Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',2,10,21,'true','27be37','2021-01-20T00:46:56.381Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',2,57,21,'true','27be37','2021-01-20T00:46:56.381Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',1,29,21,'true','27be37','2021-01-20T00:46:56.381Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',3,13,2,'true','354cfd','2021-03-21T09:17:41.597Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',5,10,2,'true','354cfd','2021-03-21T09:17:41.597Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',5,54,2,'true','354cfd','2021-03-21T09:17:41.597Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',5,10,2,'true','354cfd','2021-03-21T09:17:41.597Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',3,57,2,'true','354cfd','2021-03-21T09:17:41.597Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',1,17,2,'true','354cfd','2021-03-21T09:17:41.597Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',2,32,21,'false','3c2972','2021-02-16T09:44:37.795Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',5,10,21,'false','3c2972','2021-02-16T09:44:37.795Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',3,23,21,'false','3c2972','2021-02-16T09:44:37.795Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',3,19,21,'false','3c2972','2021-02-16T09:44:37.795Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',2,40,21,'false','3c2972','2021-02-16T09:44:37.795Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',2,10,21,'false','3c2972','2021-02-16T09:44:37.795Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',1,57,21,'false','3c2972','2021-02-16T09:44:37.795Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',3,29,21,'false','3c2972','2021-02-16T09:44:37.795Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',4,10,4,'true','916293','2021-03-23T15:32:02.400Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',3,23,4,'true','916293','2021-03-23T15:32:02.400Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',4,17,4,'true','916293','2021-03-23T15:32:02.400Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',4,29,4,'true','916293','2021-03-23T15:32:02.400Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',2,32,18,'true','144b5e','2021-01-28T21:18:24.278Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',2,10,18,'true','144b5e','2021-01-28T21:18:24.278Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',1,19,18,'true','144b5e','2021-01-28T21:18:24.278Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',5,40,18,'true','144b5e','2021-01-28T21:18:24.278Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',1,36,18,'true','144b5e','2021-01-28T21:18:24.278Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',4,13,0,'false','f4dfc4','2021-01-24T00:02:17.808Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',4,19,0,'false','f4dfc4','2021-01-24T00:02:17.808Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',3,40,0,'false','f4dfc4','2021-01-24T00:02:17.808Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',3,57,0,'false','f4dfc4','2021-01-24T00:02:17.808Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',5,13,12,'true','f84e54','2021-02-23T17:24:05.962Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',4,32,12,'true','f84e54','2021-02-23T17:24:05.962Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',3,23,12,'true','f84e54','2021-02-23T17:24:05.962Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',3,54,12,'true','f84e54','2021-02-23T17:24:05.962Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',5,40,12,'true','f84e54','2021-02-23T17:24:05.962Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',4,36,12,'true','f84e54','2021-02-23T17:24:05.962Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',2,29,12,'true','f84e54','2021-02-23T17:24:05.962Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',2,13,8,'true','76dbcb','2021-03-02T14:48:39.600Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',1,32,8,'true','76dbcb','2021-03-02T14:48:39.600Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',1,10,8,'true','76dbcb','2021-03-02T14:48:39.600Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',3,19,8,'true','76dbcb','2021-03-02T14:48:39.600Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',1,10,8,'true','76dbcb','2021-03-02T14:48:39.600Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',4,57,8,'true','76dbcb','2021-03-02T14:48:39.600Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',5,36,8,'true','76dbcb','2021-03-02T14:48:39.600Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',5,13,8,'false','2178e8','2021-01-05T05:49:36.538Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',1,32,8,'false','2178e8','2021-01-05T05:49:36.538Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',5,19,8,'false','2178e8','2021-01-05T05:49:36.538Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',3,40,8,'false','2178e8','2021-01-05T05:49:36.538Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',5,10,8,'false','2178e8','2021-01-05T05:49:36.538Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',2,36,8,'false','2178e8','2021-01-05T05:49:36.538Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',5,17,8,'false','2178e8','2021-01-05T05:49:36.538Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',2,13,14,'false','fe3190','2021-02-16T00:44:46.608Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',4,23,14,'false','fe3190','2021-02-16T00:44:46.608Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',4,19,14,'false','fe3190','2021-02-16T00:44:46.608Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',3,32,3,'false','69cc4a','2021-02-12T22:37:54.422Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',5,54,3,'false','69cc4a','2021-02-12T22:37:54.422Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',4,57,3,'false','69cc4a','2021-02-12T22:37:54.422Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',2,17,3,'false','69cc4a','2021-02-12T22:37:54.422Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',2,10,3,'false','b4fca1','2021-01-05T13:31:53.789Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',2,19,3,'false','b4fca1','2021-01-05T13:31:53.789Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',3,54,3,'false','b4fca1','2021-01-05T13:31:53.789Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',5,40,3,'false','b4fca1','2021-01-05T13:31:53.789Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',2,29,3,'false','b4fca1','2021-01-05T13:31:53.789Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',1,13,19,'true','10c67b','2021-01-23T22:53:45.859Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',3,32,19,'true','10c67b','2021-01-23T22:53:45.859Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',3,10,19,'true','10c67b','2021-01-23T22:53:45.859Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',3,54,19,'true','10c67b','2021-01-23T22:53:45.859Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',3,40,19,'true','10c67b','2021-01-23T22:53:45.859Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',5,10,19,'true','10c67b','2021-01-23T22:53:45.859Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',3,57,19,'true','10c67b','2021-01-23T22:53:45.859Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',5,36,19,'true','10c67b','2021-01-23T22:53:45.859Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',3,29,19,'true','10c67b','2021-01-23T22:53:45.859Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',5,13,11,'false','3f69da','2021-02-19T10:52:59.030Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',2,32,11,'false','3f69da','2021-02-19T10:52:59.030Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',3,10,11,'false','3f69da','2021-02-19T10:52:59.030Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',2,54,11,'false','3f69da','2021-02-19T10:52:59.030Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',2,40,11,'false','3f69da','2021-02-19T10:52:59.030Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',1,10,11,'false','3f69da','2021-02-19T10:52:59.030Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',3,36,11,'false','3f69da','2021-02-19T10:52:59.030Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',3,29,11,'false','3f69da','2021-02-19T10:52:59.030Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',5,32,14,'false','3e9cd2','2021-03-29T03:24:10.051Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',4,23,14,'false','3e9cd2','2021-03-29T03:24:10.051Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',4,54,14,'false','3e9cd2','2021-03-29T03:24:10.051Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',3,40,14,'false','3e9cd2','2021-03-29T03:24:10.051Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',2,57,14,'false','3e9cd2','2021-03-29T03:24:10.051Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',1,17,14,'false','3e9cd2','2021-03-29T03:24:10.051Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',5,32,16,'false','2c7ec0','2021-01-23T13:31:34.522Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',2,23,16,'false','2c7ec0','2021-01-23T13:31:34.522Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',3,54,16,'false','2c7ec0','2021-01-23T13:31:34.522Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',1,40,16,'false','2c7ec0','2021-01-23T13:31:34.522Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',5,10,16,'false','2c7ec0','2021-01-23T13:31:34.522Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',4,36,16,'false','2c7ec0','2021-01-23T13:31:34.522Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',3,29,16,'false','2c7ec0','2021-01-23T13:31:34.522Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',1,13,12,'true','38368f','2021-03-18T13:55:57.619Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',5,32,12,'true','38368f','2021-03-18T13:55:57.619Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',5,23,12,'true','38368f','2021-03-18T13:55:57.619Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',1,54,12,'true','38368f','2021-03-18T13:55:57.619Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',2,29,12,'true','38368f','2021-03-18T13:55:57.619Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',1,32,2,'true','4c5f21','2021-02-25T14:01:20.323Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',4,10,2,'true','4c5f21','2021-02-25T14:01:20.323Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',1,23,2,'true','4c5f21','2021-02-25T14:01:20.323Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',5,19,2,'true','4c5f21','2021-02-25T14:01:20.323Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',3,10,2,'true','4c5f21','2021-02-25T14:01:20.323Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',5,36,2,'true','4c5f21','2021-02-25T14:01:20.323Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',1,17,2,'true','4c5f21','2021-02-25T14:01:20.323Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',3,13,22,'false','5be0a7','2021-01-24T09:25:22.022Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',1,32,22,'false','5be0a7','2021-01-24T09:25:22.022Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',4,10,22,'false','5be0a7','2021-01-24T09:25:22.022Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',5,40,22,'false','5be0a7','2021-01-24T09:25:22.022Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',1,57,22,'false','5be0a7','2021-01-24T09:25:22.022Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',4,13,8,'false','916f45','2021-02-14T12:00:47.952Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',5,32,8,'false','916f45','2021-02-14T12:00:47.952Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',2,54,8,'false','916f45','2021-02-14T12:00:47.952Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',2,40,8,'false','916f45','2021-02-14T12:00:47.952Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',3,10,8,'false','916f45','2021-02-14T12:00:47.952Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',4,57,8,'false','916f45','2021-02-14T12:00:47.952Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',3,36,8,'false','916f45','2021-02-14T12:00:47.952Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',3,13,6,'true','3223de','2021-02-13T14:50:10.925Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',2,10,6,'true','3223de','2021-02-13T14:50:10.925Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',5,54,6,'true','3223de','2021-02-13T14:50:10.925Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',2,29,6,'true','3223de','2021-02-13T14:50:10.925Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',5,10,14,'true','78bc4f','2021-01-05T12:19:47.568Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',4,54,14,'true','78bc4f','2021-01-05T12:19:47.568Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',5,57,14,'true','78bc4f','2021-01-05T12:19:47.568Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',1,29,14,'true','78bc4f','2021-01-05T12:19:47.568Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',3,10,8,'true','e64ff1','2021-01-26T12:52:09.581Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',4,54,8,'true','e64ff1','2021-01-26T12:52:09.581Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',1,10,8,'true','e64ff1','2021-01-26T12:52:09.581Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',1,57,8,'true','e64ff1','2021-01-26T12:52:09.581Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',2,36,8,'true','e64ff1','2021-01-26T12:52:09.581Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',5,32,24,'true','8c876b','2021-01-20T14:15:50.112Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',5,19,24,'true','8c876b','2021-01-20T14:15:50.112Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',1,54,24,'true','8c876b','2021-01-20T14:15:50.112Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',3,40,24,'true','8c876b','2021-01-20T14:15:50.112Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',5,36,24,'true','8c876b','2021-01-20T14:15:50.112Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',4,17,24,'true','8c876b','2021-01-20T14:15:50.112Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',2,23,20,'false','277f69','2021-02-01T03:47:11.414Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',1,54,20,'false','277f69','2021-02-01T03:47:11.414Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',4,13,20,'true','6dd481','2021-02-05T04:04:18.624Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',2,10,20,'true','6dd481','2021-02-05T04:04:18.624Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',1,23,20,'true','6dd481','2021-02-05T04:04:18.624Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',2,19,20,'true','6dd481','2021-02-05T04:04:18.624Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',5,54,20,'true','6dd481','2021-02-05T04:04:18.624Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',5,57,20,'true','6dd481','2021-02-05T04:04:18.624Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',3,32,14,'false','6d1b21','2021-03-27T09:32:53.808Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',1,23,14,'false','6d1b21','2021-03-27T09:32:53.808Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',1,19,14,'false','6d1b21','2021-03-27T09:32:53.808Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',1,40,14,'false','6d1b21','2021-03-27T09:32:53.808Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',4,57,14,'false','6d1b21','2021-03-27T09:32:53.808Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',2,17,14,'false','6d1b21','2021-03-27T09:32:53.808Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',4,32,6,'true','2fa580','2021-03-08T06:15:54.547Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',2,10,6,'true','2fa580','2021-03-08T06:15:54.547Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',5,19,6,'true','2fa580','2021-03-08T06:15:54.547Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',3,10,6,'true','2fa580','2021-03-08T06:15:54.547Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',3,57,6,'true','2fa580','2021-03-08T06:15:54.547Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',5,36,6,'true','2fa580','2021-03-08T06:15:54.547Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',4,29,6,'true','2fa580','2021-03-08T06:15:54.547Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',1,32,19,'true','5428c6','2021-02-27T03:56:51.590Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',1,10,19,'true','5428c6','2021-02-27T03:56:51.590Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',5,54,19,'true','5428c6','2021-02-27T03:56:51.590Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',1,10,19,'true','5428c6','2021-02-27T03:56:51.590Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e83aa3',5,32,0,'true','cdbf79','2021-01-07T02:58:42.067Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('e31d39',3,10,0,'true','cdbf79','2021-01-07T02:58:42.067Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',3,23,0,'true','cdbf79','2021-01-07T02:58:42.067Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('9ec847',3,54,0,'true','cdbf79','2021-01-07T02:58:42.067Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',2,36,0,'true','cdbf79','2021-01-07T02:58:42.067Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',4,29,0,'true','cdbf79','2021-01-07T02:58:42.067Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',5,13,21,'false','afc26f','2021-01-05T09:41:02.832Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',5,23,21,'false','afc26f','2021-01-05T09:41:02.832Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',2,19,21,'false','afc26f','2021-01-05T09:41:02.832Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',5,10,21,'false','afc26f','2021-01-05T09:41:02.832Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('f084eb',3,36,21,'false','afc26f','2021-01-05T09:41:02.832Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('b9a74d',2,17,21,'false','afc26f','2021-01-05T09:41:02.832Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2feb6b',2,29,21,'false','afc26f','2021-01-05T09:41:02.832Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c4a632',2,13,9,'false','520b04','2021-01-10T03:01:21.043Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('d5e9a6',2,23,9,'false','520b04','2021-01-10T03:01:21.043Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('72f5d4',4,19,9,'false','520b04','2021-01-10T03:01:21.043Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('5d267b',5,40,9,'false','520b04','2021-01-10T03:01:21.043Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('c8d436',5,10,9,'false','520b04','2021-01-10T03:01:21.043Z');
+--INSERT INTO sales(prod_id,qty,price,discount,member,txn_id,start_txn_time) VALUES ('2a2353',2,57,9,'false','520b04','2021-01-10T03:01:21.043Z');
+
+
+--SELECT SUM(qty) AS total_quantity_sold
+--FROM sales;
+
+--SELECT SUM(qty * price) AS total_revenue_before_discounts
+--FROM sales;
+
+--SELECT SUM(qty * price * (discount / 100.0)) AS total_discount_amount
+--FROM sales;
+
+--SELECT COUNT(DISTINCT txn_id) AS unique_transactions
+--FROM sales;
+
+--SELECT AVG(product_count) AS avg_unique_products_per_transaction
+--FROM (
+--    SELECT txn_id, COUNT(DISTINCT prod_id) AS product_count
+--    FROM sales
+--    GROUP BY txn_id
+--) AS transaction_counts;
+
+
+--SELECT AVG(total_discount) AS avg_discount_per_transaction
+--FROM (
+--    SELECT txn_id, SUM(qty * price * (discount / 100.0)) AS total_discount
+--    FROM sales
+--    GROUP BY txn_id
+--) AS transaction_discounts;
+
+
+--SELECT 
+--    member,
+--    AVG(qty * price) AS avg_revenue
+--FROM 
+--    sales
+--GROUP BY 
+--    member;
+
+
+--SELECT TOP 3 
+--    prod_id, 
+--    SUM(qty * price) AS total_revenue_before_discount
+--FROM 
+--    sales
+--GROUP BY 
+--    prod_id
+--ORDER BY 
+--    total_revenue_before_discount DESC;
+
+--SELECT 
+--    member AS segment,
+--    SUM(qty) AS total_quantity,
+--    SUM(qty * price) AS total_revenue,
+--    SUM(qty * price * (discount / 100.0)) AS total_discount
+--FROM 
+--    sales
+--GROUP BY 
+--    member;
+
+
+--SELECT 
+--    member AS segment,
+--    prod_id,
+--    SUM(qty) AS total_quantity
+--FROM 
+--    sales
+--GROUP BY 
+--    member, prod_id
+--ORDER BY 
+--    segment, total_quantity DESC;
+
+
+--SELECT 
+--    pd.category_name AS Category,
+--    SUM(s.qty) AS Total_Quantity,
+--    SUM(s.qty * s.price) AS Total_Revenue,
+--    SUM(s.qty * s.price * s.discount / 100) AS Total_Discount
+--FROM 
+--    sales s
+--JOIN 
+--    product_details pd ON s.prod_id = pd.product_id
+--GROUP BY 
+--    pd.category_name;
+
+--WITH RankedSales AS (
+--    SELECT 
+--        pd.category_name AS Category,
+--        pd.product_name AS Product,
+--        SUM(s.qty) AS Total_Quantity,
+--        RANK() OVER (PARTITION BY pd.category_name ORDER BY SUM(s.qty) DESC) AS Rank
+--    FROM 
+--        sales s
+--    JOIN 
+--        product_details pd ON s.prod_id = pd.product_id
+--    GROUP BY 
+--        pd.category_name, pd.product_name
+--)
+--SELECT 
+--    Category,
+--    Product,
+--    Total_Quantity
+--FROM 
+--    RankedSales
+--WHERE 
+--    Rank = 1;
+
+
+
